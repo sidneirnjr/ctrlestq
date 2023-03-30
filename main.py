@@ -1,7 +1,4 @@
-import tkinter as tk
-from tkinter import ttk
 import pickle
-
 
 # Definição das funções de registro, venda e consulta de produtos
 
@@ -71,77 +68,24 @@ try:
 except FileNotFoundError:
     pass
 
+# Loop principal do programa
+while True:
+    print("=== Menu ===")
+    print("1. Registrar produto")
+    print("2. Registrar venda")
+    print("3. Consultar produto")
+    print("0. Sair")
 
-# criação da janela principal
-root = tk.Tk()
-root.geometry("800x600")
-root.title("Controle de Estoque")
+    opcao = int(input("Digite a opção desejada: "))
 
-# definindo o estilo dos widgets
-style = ttk.Style()
-style.theme_use("clam")
-style.configure("TLabel", font=("Helvetica", 12))
-style.configure("TButton", font=("Helvetica", 12))
-style.configure("TEntry", font=("Helvetica", 12))
-
-# criação dos widgets
-
-# frame para o registro de produtos
-frame_registro = ttk.Frame(root, padding=20, relief="raised")
-frame_registro.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
-
-# título do frame de registro de produtos
-label_titulo_registro = ttk.Label(frame_registro, text="Registro de Produtos")
-label_titulo_registro.grid(row=0, column=0, columnspan=2, pady=10)
-
-# label e entry para o nome do produto
-label_nome_produto = ttk.Label(frame_registro, text="Nome do Produto:")
-label_nome_produto.grid(row=1, column=0, sticky="w")
-entry_nome_produto = ttk.Entry(frame_registro, width=40)
-entry_nome_produto.grid(row=1, column=1, padx=5, pady=5)
-
-# label e entry para a quantidade do produto
-label_quantidade = ttk.Label(frame_registro, text="Quantidade:")
-label_quantidade.grid(row=2, column=0, sticky="w")
-entry_quantidade = ttk.Entry(frame_registro, width=10)
-entry_quantidade.grid(row=2, column=1, padx=5, pady=5)
-
-# label e entry para o valor de compra do produto
-label_valor_compra = ttk.Label(frame_registro, text="Valor de Compra (R$):")
-label_valor_compra.grid(row=3, column=0, sticky="w")
-entry_valor_compra = ttk.Entry(frame_registro, width=10)
-entry_valor_compra.grid(row=3, column=1, padx=5, pady=5)
-
-# label e entry para o valor de venda do produto
-label_valor_venda = ttk.Label(frame_registro, text="Valor de Venda (R$):")
-label_valor_venda.grid(row=4, column=0, sticky="w")
-entry_valor_venda = ttk.Entry(frame_registro, width=10)
-entry_valor_venda.grid(row=4, column=1, padx=5, pady=5)
-
-# botão para registrar o produto
-botao_registrar = ttk.Button(frame_registro, text="Registrar")
-botao_registrar.grid(row=5, column=0, columnspan=2, pady=20)
-
-# Criação dos widgets para o frame de registro de produtos
-lbl_nome = tk.Label(frame_registro, text="Nome do produto:")
-lbl_nome.grid(row=0, column=0, padx=5, pady=5, sticky=tk.W)
-entry_nome = tk.Entry(frame_registro, width=30)
-entry_nome.grid(row=0, column=1, padx=5, pady=5)
-
-lbl_qtd = tk.Label(frame_registro, text="Quantidade:")
-lbl_qtd.grid(row=1, column=0, padx=5, pady=5, sticky=tk.W)
-entry_qtd = tk.Entry(frame_registro, width=10)
-entry_qtd.grid(row=1, column=1, padx=5, pady=5)
-
-lbl_val_compra = tk.Label(frame_registro, text="Valor de compra:")
-lbl_val_compra.grid(row=2, column=0, padx=5, pady=5, sticky=tk.W)
-entry_val_compra = tk.Entry(frame_registro, width=10)
-entry_val_compra.grid(row=2, column=1, padx=5, pady=5)
-
-lbl_val_venda = tk.Label(frame_registro, text="Valor de venda:")
-lbl_val_venda.grid(row=3, column=0, padx=5, pady=5, sticky=tk.W)
-entry_val_venda = tk.Entry(frame_registro, width=10)
-entry_val_venda.grid(row=3, column=1, padx=5, pady=5)
-
-btn_registrar = tk.Button(frame_registro, text="Registrar", command=registrar_produto)
-btn_registrar.grid(row=4, column=0, columnspan=2, padx=5, pady=5)
+    if opcao == 1:
+        registrar_produto()
+    elif opcao == 2:
+        registrar_venda()
+    elif opcao == 3:
+        consultar_produto()
+    elif opcao == 0:
+        # Salva os dados no arquivo antes de sair
+        with open("produtos.pickle", "wb") as arquivo:
+            pickle.dump(produtos, arquivo)
+            break
